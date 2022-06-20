@@ -10,9 +10,10 @@
 #import "APIManager.h"
 #import "AppDelegate.h"
 #import "LoginViewController.h"
+#import "Tweet.h"
 
 @interface TimelineViewController ()
-
+@property (nonatomic, strong) NSMutableArray *arrayOfTweets;
 @end
 
 @implementation TimelineViewController
@@ -23,15 +24,27 @@
     // Get timeline
     [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
         if (tweets) {
+            self.arrayOfTweets = (NSMutableArray*) tweets;
             NSLog(@"😎😎😎 Successfully loaded home timeline");
-            for (NSDictionary *dictionary in tweets) {
-                NSString *text = dictionary[@"text"];
+            for (Tweet *tweet in tweets) {
+                NSString *text = tweet.text;
                 NSLog(@"%@", text);
             }
         } else {
             NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
         }
     }];
+}
+- (IBAction)didTapLogout:(id)sender {
+    // TimelineViewController.m
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    appDelegate.window.rootViewController = loginViewController;
+    
+    // clearing access tokens
+    [[APIManager shared] logout];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -41,24 +54,11 @@
 
 /*
 #pragma mark - Navigation
-
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
 */
-
-- (IBAction)didTapLogout:(id)sender {
-    // TimelineViewController.m
-    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-    appDelegate.window.rootViewController = loginViewController;
-    
-    // clear out the access tokens
-    [[APIManager shared] logout];
-}
 
 @end
