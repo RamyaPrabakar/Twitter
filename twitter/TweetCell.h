@@ -1,0 +1,26 @@
+//
+//  TweetCell.h
+//  twitter
+//
+//  Created by Ramya Prabakar on 6/20/22.
+//  Copyright © 2022 Emerson Malca. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "Tweet.h"
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface TweetCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *createdAt;
+@property (weak, nonatomic) IBOutlet UILabel *name;
+@property (weak, nonatomic) IBOutlet UIImageView *profilePicture;
+@property (weak, nonatomic) IBOutlet UILabel *screenName;
+@property (weak, nonatomic) IBOutlet UILabel *text;
+@property (weak, nonatomic) IBOutlet UILabel *replyCount;
+@property (weak, nonatomic) IBOutlet UILabel *retweetCount;
+@property (weak, nonatomic) IBOutlet UILabel *favoriteCount;
+@property (nonatomic, strong) Tweet *tweet; // Contains Tweet information
+@end
+
+NS_ASSUME_NONNULL_END

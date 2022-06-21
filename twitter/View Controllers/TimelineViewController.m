@@ -11,27 +11,34 @@
 #import "AppDelegate.h"
 #import "LoginViewController.h"
 #import "Tweet.h"
+#import "TweetCell.h"
 
-@interface TimelineViewController ()
+@interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *arrayOfTweets;
+
+// TODO : Create outlets of the different views in the cell
 @end
 
 @implementation TimelineViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
     
     // Get timeline
     [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
         if (tweets) {
             self.arrayOfTweets = (NSMutableArray*) tweets;
-            NSLog(@"😎😎😎 Successfully loaded home timeline");
+            // NSLog(@"😎😎😎 Successfully loaded home timeline");
             for (Tweet *tweet in tweets) {
                 NSString *text = tweet.text;
-                NSLog(@"%@", text);
+                // NSLog(@"%@", text);
             }
+            [self.tableView reloadData];
         } else {
-            NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
+            // NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
         }
     }];
 }
@@ -50,6 +57,42 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
+    // TODO : Configure the TweetCell
+    Tweet *tweet = self.arrayOfTweets[indexPath.row];
+    cell.name.text = tweet.user.name;
+    cell.screenName.text = tweet.user.screenName;
+    cell.createdAt.text = tweet.createdAtString;
+    cell.text.text = tweet.text;
+    cell.retweetCount.text = [NSString stringWithFormat:@"%d", tweet.retweetCount];
+    cell.favoriteCount.text = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
+    
+    if (tweet.retweeted == true) {
+        tweet.retweetCount += 1;
+        cell.retweetCount.text = [NSString stringWithFormat:@"%d", tweet.retweetCount];
+        NSLog(@"%@", cell.retweetCount.text);
+    }
+    
+    if (tweet.favorited == true) {
+        tweet.favoriteCount += 1;
+        cell.favoriteCount.text = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
+    }
+    
+    cell.replyCount.text = [NSString stringWithFormat:@"%d", tweet.replyCount];
+    
+    NSString *URLString = tweet.user.profilePicture;
+    NSURL *url = [NSURL URLWithString:URLString];
+    NSData *urlData = [NSData dataWithContentsOfURL:url];
+    
+    cell.profilePicture.image = [[UIImage alloc]initWithData:urlData];
+    return cell;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.arrayOfTweets.count;
 }
 
 /*
