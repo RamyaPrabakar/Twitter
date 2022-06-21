@@ -16,6 +16,7 @@
 @interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *arrayOfTweets;
+@property (nonatomic, strong) UIRefreshControl* refreshControl;
 
 // TODO : Create outlets of the different views in the cell
 @end
@@ -27,21 +28,31 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
+    [self getTimeline];
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(getTimeline) forControlEvents:UIControlEventValueChanged];
+    [self.tableView insertSubview:self.refreshControl atIndex:0];
+}
+
+
+- (void) getTimeline {
     // Get timeline
     [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
         if (tweets) {
             self.arrayOfTweets = (NSMutableArray*) tweets;
-            // NSLog(@"😎😎😎 Successfully loaded home timeline");
+            NSLog(@"😎😎😎 Successfully loaded home timeline");
             for (Tweet *tweet in tweets) {
                 NSString *text = tweet.text;
-                // NSLog(@"%@", text);
+                 NSLog(@"%@", text);
             }
             [self.tableView reloadData];
         } else {
-            // NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
+            NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
         }
+        [self.refreshControl endRefreshing];
     }];
 }
+
 - (IBAction)didTapLogout:(id)sender {
     // TimelineViewController.m
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
