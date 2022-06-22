@@ -78,7 +78,7 @@
     cell.tweet = tweet;
     cell.name.text = tweet.user.name;
     cell.screenName.text = tweet.user.screenName;
-    cell.createdAt.text = tweet.createdAtString;
+    cell.createdAt.text = tweet.date.shortTimeAgoSinceNow;
     cell.text.text = tweet.text;
     // cell.retweetCount.text = [NSString stringWithFormat:@"%d", tweet.retweetCount];
     // cell.favoriteCount.text = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
