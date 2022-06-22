@@ -75,23 +75,31 @@
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
     // TODO : Configure the TweetCell
     Tweet *tweet = self.arrayOfTweets[indexPath.row];
+    cell.tweet = tweet;
     cell.name.text = tweet.user.name;
     cell.screenName.text = tweet.user.screenName;
     cell.createdAt.text = tweet.createdAtString;
     cell.text.text = tweet.text;
-    cell.retweetCount.text = [NSString stringWithFormat:@"%d", tweet.retweetCount];
-    cell.favoriteCount.text = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
+    // cell.retweetCount.text = [NSString stringWithFormat:@"%d", tweet.retweetCount];
+    // cell.favoriteCount.text = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
     
     if (tweet.retweeted == true) {
-        tweet.retweetCount += 1;
-        cell.retweetCount.text = [NSString stringWithFormat:@"%d", tweet.retweetCount];
-        NSLog(@"%@", cell.retweetCount.text);
+        [cell.retweetButton setImage:[UIImage imageNamed:@"retweet-icon-green.png"]  forState:UIControlStateNormal];
+        // [cell.favoriteButton setSelected:YES];
+    } else {
+        [cell.retweetButton setImage:[UIImage imageNamed:@"retweet-icon.png"]  forState:UIControlStateNormal];
     }
     
+    cell.retweetCount.text = [NSString stringWithFormat:@"%d", tweet.retweetCount];
+    
     if (tweet.favorited == true) {
-        tweet.favoriteCount += 1;
-        cell.favoriteCount.text = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
+        [cell.favoriteButton setImage:[UIImage imageNamed:@"favor-icon-red.png"]  forState:UIControlStateNormal];
+        // [cell.favoriteButton setSelected:YES];
+    } else {
+        [cell.favoriteButton setImage:[UIImage imageNamed:@"favor-icon.png"]  forState:UIControlStateNormal];
     }
+    
+    cell.favoriteCount.text = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
     
     cell.replyCount.text = [NSString stringWithFormat:@"%d", tweet.replyCount];
     

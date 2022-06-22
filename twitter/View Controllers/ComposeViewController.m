@@ -32,6 +32,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [[self.textView layer] setBorderColor:[[UIColor grayColor] CGColor]];
+    [[self.textView layer] setBorderWidth:2.3];
+    [[self.textView layer] setCornerRadius:15];
     // Do any additional setup after loading the view.
 }
 

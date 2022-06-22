@@ -150,6 +150,9 @@
                                                     </constraints>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain" image="retweet-icon" title=""/>
+                                                    <connections>
+                                                        <action selector="didTapRetweet:" destination="QWk-s7-12h" eventType="touchUpInside" id="71H-Wy-ngE"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e7D-j5-yMV">
                                                     <rect key="frame" x="268" y="119" width="30" height="30"/>
@@ -159,6 +162,9 @@
                                                     </constraints>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain" image="favor-icon" title=""/>
+                                                    <connections>
+                                                        <action selector="didTapFavorite:" destination="QWk-s7-12h" eventType="touchUpInside" id="bvA-Kb-n8C"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PT9-Jh-SLE">
                                                     <rect key="frame" x="361" y="119" width="30" height="30"/>
@@ -204,10 +210,14 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="createdAt" destination="aEW-8C-SFo" id="cuG-qk-zs9"/>
+                                            <outlet property="favoriteButton" destination="e7D-j5-yMV" id="1tJ-sg-uyC"/>
                                             <outlet property="favoriteCount" destination="XUn-dJ-GtE" id="HvR-Vg-u6a"/>
+                                            <outlet property="messageButton" destination="PT9-Jh-SLE" id="HiB-vd-fbc"/>
                                             <outlet property="name" destination="oM9-TP-lUW" id="TCz-Cz-uNp"/>
                                             <outlet property="profilePicture" destination="HlT-Pv-n09" id="5uG-qm-U5E"/>
+                                            <outlet property="replyButton" destination="9ZB-fH-rCh" id="y5z-8R-IyN"/>
                                             <outlet property="replyCount" destination="YNr-PI-6bK" id="lTo-bM-JCd"/>
+                                            <outlet property="retweetButton" destination="skj-Fv-clr" id="9on-MA-mdR"/>
                                             <outlet property="retweetCount" destination="B0g-lq-ag5" id="6E6-Lc-SZT"/>
                                             <outlet property="screenName" destination="aKh-7o-dRl" id="SlZ-zE-Yxz"/>
                                             <outlet property="text" destination="dXh-w4-yji" id="jbY-rR-x5C"/>
@@ -259,8 +269,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ZAn-Zn-QYU">
-                                <rect key="frame" x="0.0" y="58" width="375" height="222"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" keyboardDismissMode="interactive" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ZAn-Zn-QYU">
+                                <rect key="frame" x="25" y="56" width="334" height="212"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" systemColor="labelColor"/>
@@ -289,7 +299,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EiQ-df-MgU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3345" y="36"/>
+            <point key="canvasLocation" x="3344.8000000000002" y="35.532233883058474"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="WUT-Ke-VeR">
