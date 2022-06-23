@@ -51,8 +51,8 @@ Please list two areas of the assignment you'd like to **discuss further with you
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories (Link to better quality gif) : https://i.imgur.com/Z5cyiOy.gif
-<img src='final_AdobeExpress.gif' title='Video Walkthrough' alt='Video Walkthrough' width="800" 
-     height="950"/>
+<img src='final_AdobeExpress.gif' title='Video Walkthrough' alt='Video Walkthrough' width="400" 
+     height="600"/>
 
 ## Notes
 
