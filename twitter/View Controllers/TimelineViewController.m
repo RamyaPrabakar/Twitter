@@ -13,8 +13,9 @@
 #import "Tweet.h"
 #import "TweetCell.h"
 #import "ComposeViewController.h"
+#import "DetailsViewController.h"
 
-@interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface TimelineViewController () <ComposeViewControllerDelegate, DetailsViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *arrayOfTweets;
 @property (nonatomic, strong) UIRefreshControl* refreshControl;
@@ -77,15 +78,13 @@
     Tweet *tweet = self.arrayOfTweets[indexPath.row];
     cell.tweet = tweet;
     cell.name.text = tweet.user.name;
-    cell.screenName.text = tweet.user.screenName;
+    NSString *screenNameWithAt = [@"@" stringByAppendingString:tweet.user.screenName];
+    cell.screenName.text = screenNameWithAt;
     cell.createdAt.text = tweet.date.shortTimeAgoSinceNow;
     cell.text.text = tweet.text;
-    // cell.retweetCount.text = [NSString stringWithFormat:@"%d", tweet.retweetCount];
-    // cell.favoriteCount.text = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
     
     if (tweet.retweeted == true) {
         [cell.retweetButton setImage:[UIImage imageNamed:@"retweet-icon-green.png"]  forState:UIControlStateNormal];
-        // [cell.favoriteButton setSelected:YES];
     } else {
         [cell.retweetButton setImage:[UIImage imageNamed:@"retweet-icon.png"]  forState:UIControlStateNormal];
     }
@@ -94,7 +93,6 @@
     
     if (tweet.favorited == true) {
         [cell.favoriteButton setImage:[UIImage imageNamed:@"favor-icon-red.png"]  forState:UIControlStateNormal];
-        // [cell.favoriteButton setSelected:YES];
     } else {
         [cell.favoriteButton setImage:[UIImage imageNamed:@"favor-icon.png"]  forState:UIControlStateNormal];
     }
@@ -116,13 +114,26 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-   UINavigationController *navigationController = [segue destinationViewController];
-   ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
-   composeController.delegate = self;
+    
+    if ([[segue identifier] isEqualToString:@"composeSegue"]) {
+       UINavigationController *navigationController = [segue destinationViewController];
+       ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
+       composeController.delegate = self;
+    } else if ([[segue identifier] isEqualToString:@"detailsSegue"]) {
+        UINavigationController *navigationController = [segue destinationViewController];
+        DetailsViewController *detailsViewController = (DetailsViewController*)navigationController.topViewController;
+        Tweet *dataToPass = self.arrayOfTweets[[self.tableView indexPathForCell:sender].row];
+        detailsViewController.passedTweet = dataToPass;
+        detailsViewController.delegate = self;
+    }
 }
 
 - (void)didTweet:(Tweet *)tweet {
     [self.arrayOfTweets insertObject:tweet atIndex:0];
+    [self.tableView reloadData];
+}
+
+- (void)didChangeInDetailsView {
     [self.tableView reloadData];
 }
 
