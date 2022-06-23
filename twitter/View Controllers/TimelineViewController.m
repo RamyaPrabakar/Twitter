@@ -106,6 +106,7 @@
     NSData *urlData = [NSData dataWithContentsOfURL:url];
     
     cell.profilePicture.image = [[UIImage alloc]initWithData:urlData];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
