@@ -13,6 +13,7 @@
 #import "Tweet.h"
 #import "TweetCell.h"
 #import "ComposeViewController.h"
+#import "DetailsViewController.h"
 
 @interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -115,10 +116,23 @@
     return self.arrayOfTweets.count;
 }
 
+/* - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    TweetCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    [self performSegueWithIdentifier:@"detailsSegue" sender:cell];
+}*/
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-   UINavigationController *navigationController = [segue destinationViewController];
-   ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
-   composeController.delegate = self;
+    
+    if ([[segue identifier] isEqualToString:@"composeSegue"]) {
+       UINavigationController *navigationController = [segue destinationViewController];
+       ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
+       composeController.delegate = self;
+    } else if ([[segue identifier] isEqualToString:@"detailsSegue"]) {
+        UINavigationController *navigationController = [segue destinationViewController];
+        DetailsViewController *detailsViewController = (DetailsViewController*)navigationController.topViewController;
+        Tweet *dataToPass = self.arrayOfTweets[[self.tableView indexPathForCell:sender].row];
+        detailsViewController.passedTweet = dataToPass;
+    }
 }
 
 - (void)didTweet:(Tweet *)tweet {
