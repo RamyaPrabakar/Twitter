@@ -60,8 +60,8 @@ Here is the landscape view :
 
 Here is how it looks on a different device (IPad) :
 
-<img src='IPad1.png' title='IPad1' width="300" height="400"/>
-<img src='Ipad2.png' title='IPad2' width="400" height="300"/>
+<img src='IPad1.png' title='IPad1' width="600" height="800"/>
+<img src='Ipad2.png' title='IPad2' width="800" height="600"/>
 
 Other features :
 
