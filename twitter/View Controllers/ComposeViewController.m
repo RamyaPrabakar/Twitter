@@ -11,6 +11,9 @@
 
 @interface ComposeViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (weak, nonatomic) IBOutlet UILabel *characterCount;
+@property (weak, nonatomic) IBOutlet UILabel *alertLabel;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *tweetButton;
 @end
 
 @implementation ComposeViewController
@@ -37,6 +40,46 @@
     [[self.textView layer] setBorderWidth:2.3];
     [[self.textView layer] setCornerRadius:15];
     // Do any additional setup after loading the view.
+}
+
+- (void)textViewDidChange:(UITextView *)textView {
+    NSString *substring = [NSString stringWithString:textView.text];
+    
+    if (substring.length > 0) {
+        self.characterCount.hidden = NO;
+        self.characterCount.text = [NSString stringWithFormat:@"%lu", substring.length];
+    }
+    
+    if (substring.length == 0) {
+        self.characterCount.hidden = YES;
+    }
+    
+    if (substring.length > 280) {
+        /* UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Tweet too long"
+                                                                                   message:@"Your tweet cannot be longer than 280 characters"
+                                                                            preferredStyle:(UIAlertControllerStyleAlert)];
+        // create an OK action
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+                                                                 // handle response here.
+                                                         }];
+        // add the OK action to the alert controller
+        [alert addAction:okAction];
+        
+        [self presentViewController:alert animated:YES completion:^{
+            // optional code for what happens after the alert controller has finished presenting
+            
+        }]; */
+        
+        self.alertLabel.text = @"Character count (280) exceeded";
+        [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled:NO];
+    } else {
+        self.alertLabel.text = nil;
+        [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled:YES];
+    }
+    
+    
 }
 
 /*
