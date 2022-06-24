@@ -68,6 +68,23 @@ static NSString * const baseURLString = @"https://api.twitter.com";
     }];
 }
 
+// Getting time line with since id
+- (void)getHomeTimelineWithMaxId:(NSString *)max_id completion:(void(^)(NSArray *tweets, NSError *error))completion {
+    NSString *urlString = @"1.1/statuses/home_timeline.json";
+    NSDictionary *parameters = @{@"tweet_mode":@"extended", @"max_id":max_id};
+    
+    // Create a GET Request
+    [self GET:urlString
+       parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable tweetDictionaries) {
+           // Success
+           NSMutableArray *tweets = [Tweet tweetsWithArray:tweetDictionaries];
+           completion(tweets, nil);
+       } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+           // There was a problem
+           completion(nil, error);
+    }];
+}
+
 // Post Composed Tweet Method
 - (void)postStatusWithText:(NSString *)text completion:(void (^)(Tweet *, NSError *))completion {
     NSString *urlString = @"1.1/statuses/update.json";

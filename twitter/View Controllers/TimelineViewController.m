@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *arrayOfTweets;
 @property (nonatomic, strong) UIRefreshControl* refreshControl;
+@property (nonatomic) BOOL loadingMoreThanTwentyTableViewData;
 
 // TODO : Create outlets of the different views in the cell
 @end
@@ -34,25 +35,47 @@
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(getTimeline) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:self.refreshControl atIndex:0];
+    self.loadingMoreThanTwentyTableViewData = false;
 }
 
 
 - (void) getTimeline {
-    // Get timeline
-    [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
-        if (tweets) {
-            self.arrayOfTweets = (NSMutableArray*) tweets;
-            NSLog(@"😎😎😎 Successfully loaded home timeline");
-            for (Tweet *tweet in tweets) {
-                NSString *text = tweet.text;
-                 NSLog(@"%@", text);
+    
+    if (!self.loadingMoreThanTwentyTableViewData) {
+        self.loadingMoreThanTwentyTableViewData = true;
+        [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
+            if (tweets) {
+                self.arrayOfTweets = (NSMutableArray*) tweets;
+                NSLog(@"😎😎😎 Successfully loaded home timeline");
+                for (Tweet *tweet in tweets) {
+                    NSString *text = tweet.text;
+                    NSLog(@"%@", text);
+                }
+                [self.tableView reloadData];
+            } else {
+                NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
             }
-            [self.tableView reloadData];
-        } else {
-            NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
-        }
-        [self.refreshControl endRefreshing];
-    }];
+            [self.refreshControl endRefreshing];
+        }];
+    } else {
+        Tweet* lastTweet = self.arrayOfTweets[self.arrayOfTweets.count - 1];
+        [[APIManager shared] getHomeTimelineWithMaxId:lastTweet.idStr
+                                           completion:^(NSArray *tweets, NSError *error) {
+            if (tweets) {
+                // self.arrayOfTweets = (NSMutableArray*) tweets;
+                NSLog(@"😎😎😎 Successfully loaded home timeline");
+                for (Tweet *tweet in tweets) {
+                    [self.arrayOfTweets addObject:tweet];
+                    NSString *text = tweet.text;
+                    NSLog(@"%@", text);
+                }
+                [self.tableView reloadData];
+            } else {
+                NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
+            }
+            [self.refreshControl endRefreshing];
+        }];
+    }
 }
 
 - (IBAction)didTapLogout:(id)sender {
@@ -73,6 +96,12 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.row == self.arrayOfTweets.count - 1) {
+        [self getTimeline];
+        [self.tableView reloadData];
+    }
+    
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
     // TODO : Configure the TweetCell
     Tweet *tweet = self.arrayOfTweets[indexPath.row];

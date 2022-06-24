@@ -26,4 +26,6 @@
 
 - (void)unretweet:(Tweet *)tweet completion:(void (^)(Tweet *, NSError *))completion;
 
+- (void)getHomeTimelineWithMaxId:(NSString *)max_id completion:(void(^)(NSArray *tweets, NSError *error))completion;
+
 @end
