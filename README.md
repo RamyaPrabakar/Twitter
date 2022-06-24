@@ -68,6 +68,10 @@ Other features :
 Character counting :
 
 <img src='characterCount.gif' title='characterCount' width="400" height="800"/>
+
+Infinite Scrolling :
+
+<img src='infiniteScroll_AdobeExpress.gif' title='characterCount' width="400" height="800"/>
 ## Notes
 
 Describe any challenges encountered while building the app.
