@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface ComposeViewController : UIViewController
+@interface ComposeViewController : UIViewController <UITableViewDelegate>
 
 @property (nonatomic, weak) id<ComposeViewControllerDelegate> delegate;
 

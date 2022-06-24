@@ -477,17 +477,46 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" keyboardDismissMode="interactive" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ZAn-Zn-QYU">
-                                <rect key="frame" x="25" y="56" width="334" height="212"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ZAn-Zn-QYU">
+                                <rect key="frame" x="10" y="71" width="355" height="212"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="355" id="Bio-Yo-vaI"/>
+                                    <constraint firstAttribute="height" constant="212" id="DLk-XC-xmX"/>
+                                </constraints>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <connections>
+                                    <outlet property="delegate" destination="RDx-Vl-5xN" id="jLg-nA-wLR"/>
+                                </connections>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pWP-wx-Mt8">
+                                <rect key="frame" x="350" y="293" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aDG-eb-kNM">
+                                <rect key="frame" x="8" y="293" width="359" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" systemColor="systemPinkColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="zHp-Iw-VOX"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="zHp-Iw-VOX" firstAttribute="trailing" secondItem="pWP-wx-Mt8" secondAttribute="trailing" constant="25" id="DTx-us-TMd"/>
+                            <constraint firstItem="ZAn-Zn-QYU" firstAttribute="leading" secondItem="zHp-Iw-VOX" secondAttribute="leading" constant="10" id="Xsq-tW-6R0"/>
+                            <constraint firstItem="aDG-eb-kNM" firstAttribute="top" secondItem="ZAn-Zn-QYU" secondAttribute="bottom" constant="10" id="dsS-fm-s1O"/>
+                            <constraint firstItem="ZAn-Zn-QYU" firstAttribute="top" secondItem="zHp-Iw-VOX" secondAttribute="top" constant="15" id="erT-4P-aNq"/>
+                            <constraint firstItem="pWP-wx-Mt8" firstAttribute="top" secondItem="ZAn-Zn-QYU" secondAttribute="bottom" constant="10" id="j24-sM-J90"/>
+                            <constraint firstItem="zHp-Iw-VOX" firstAttribute="trailing" secondItem="ZAn-Zn-QYU" secondAttribute="trailing" constant="10" id="peY-pt-PbV"/>
+                            <constraint firstItem="zHp-Iw-VOX" firstAttribute="trailing" secondItem="aDG-eb-kNM" secondAttribute="trailing" constant="8" id="prc-ah-9X0"/>
+                            <constraint firstItem="aDG-eb-kNM" firstAttribute="centerX" secondItem="zHp-Iw-VOX" secondAttribute="centerX" id="ryU-eV-eB8"/>
+                            <constraint firstItem="aDG-eb-kNM" firstAttribute="leading" secondItem="zHp-Iw-VOX" secondAttribute="leading" constant="8" id="wPY-Sn-JU1"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Tef-du-BGQ">
                         <barButtonItem key="leftBarButtonItem" title="X" id="xb3-Z7-W7K">
@@ -502,7 +531,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="alertLabel" destination="aDG-eb-kNM" id="2ge-ef-PwO"/>
+                        <outlet property="characterCount" destination="pWP-wx-Mt8" id="U7i-71-DQM"/>
                         <outlet property="textView" destination="ZAn-Zn-QYU" id="mjx-Bt-Hai"/>
+                        <outlet property="tweetButton" destination="6jZ-KO-u9v" id="EPL-Dd-SZk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EiQ-df-MgU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -581,6 +613,9 @@
         </systemColor>
         <systemColor name="systemGray3Color">
             <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPinkColor">
+            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
