@@ -55,11 +55,13 @@ Here's a walkthrough of implemented user stories (Link to better quality gif) : 
      height="800"/>
      
 Here is the landscape view :
+
 <img src='LooksGood.png' title='Landscape View'/>
 
 Here is how it looks on a different device (IPad) :
-<img src='IPad1.png' title='IPad1' width="150" height="200"/>
-<img src='Ipad2.png' title='IPad2' width="200" height="150"/>
+
+<img src='IPad1.png' title='IPad1' width="300" height="400"/>
+<img src='Ipad2.png' title='IPad2' width="400" height="300"/>
 ## Notes
 
 Describe any challenges encountered while building the app.
