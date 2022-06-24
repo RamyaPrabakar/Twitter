@@ -62,9 +62,16 @@ Here is how it looks on a different device (IPad) :
 
 <img src='IPad1.png' title='IPad1' width="300" height="400"/>
 <img src='Ipad2.png' title='IPad2' width="400" height="300"/>
+
+
 ## Notes
 
 Describe any challenges encountered while building the app.
+
+Since we were using the twitter API and we were making many tweets to test out our app, I
+got rate limited by twitter often. This made it challenging to understand if my code was buggy
+or if I was getting rate limited. But after a while, I was able to understand which error code meant
+that I was getting rate limited.
 
 ## Credits
 
