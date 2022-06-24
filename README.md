@@ -67,7 +67,7 @@ Other features :
 
 Character counting :
 
-<img src='characterCount.gif' title='characterCount' width="200" height="400"/>
+<img src='characterCount.gif' title='characterCount' width="400" height="800"/>
 ## Notes
 
 Describe any challenges encountered while building the app.
