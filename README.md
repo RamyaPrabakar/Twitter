@@ -63,7 +63,11 @@ Here is how it looks on a different device (IPad) :
 <img src='IPad1.png' title='IPad1' width="300" height="400"/>
 <img src='Ipad2.png' title='IPad2' width="400" height="300"/>
 
+Other features :
 
+Character counting :
+
+<img src='characterCount.gif' title='characterCount' width="200" height="400"/>
 ## Notes
 
 Describe any challenges encountered while building the app.
