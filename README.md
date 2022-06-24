@@ -59,7 +59,7 @@ Here is the landscape view :
 
 Here is how it looks on a different device (IPad) :
 <img src='IPad1.png' title='IPad1'/>
-<br>
+<br/>
 <img src='Ipad2.png' title='IPad2'/>
 ## Notes
 
