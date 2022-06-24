@@ -58,9 +58,8 @@ Here is the landscape view :
 <img src='LooksGood.png' title='Landscape View'/>
 
 Here is how it looks on a different device (IPad) :
-<img src='IPad1.png' title='IPad1'/>
-<br/>
-<img src='Ipad2.png' title='IPad2'/>
+<img src='IPad1.png' title='IPad1' width="150" height="200"/>
+<img src='Ipad2.png' title='IPad2' width="200" height="150"/>
 ## Notes
 
 Describe any challenges encountered while building the app.
